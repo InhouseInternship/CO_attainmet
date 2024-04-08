@@ -1,0 +1,12 @@
+.excel-sum{
+    background-color:rgb(195, 197, 197);
+}
+input{
+    margin-top: 30px;
+    margin-left: 30px;
+    border: 10px;
+    font-size: 22px;
+    align-items: center;
+    background-color: rgb(148, 145, 145);
+    border-radius: 20px;
+}
