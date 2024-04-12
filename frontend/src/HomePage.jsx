@@ -7,12 +7,17 @@ function YearSelector() {
   const [selectedYear, setSelectedYear] = useState(null);
   const [selectedYearInCollege, setSelectedYearInCollege] = useState(null);
   const currentYear = new Date().getFullYear();
+  // console.log(typeof(selectedYear));
+  // console.log(typeof(selectedYearInCollege));
+  // console.log(typeof(selectedDepartment));
   const [selectedDepartment, setSelectedDepartment] = useState('');
   const years = Array.from({ length: currentYear - 1999 }, (_, index) => 2000 + index);
   const yearsInCollege = ['First Year', 'Second Year', 'Third Year', 'Final Year'];
   const departments = ['Computer', 'ENTC', 'IT'];
   const [slideIndex, setSlideIndex] = useState(0);
 
+  //   console.log(typeof(selectedYearInCollege));
+  // console.log(typeof(selectedDepartment));
   useEffect(() => {
     const interval = setInterval(() => {
       slideDepartments(1);
@@ -36,18 +41,27 @@ function YearSelector() {
     document.querySelector('.co-list').style.transform = translateValue;
   };
   const handleYearSelection = (e) => {
+
     setSelectedYear(parseInt(e.target.value));
+        // console.log(selectedYear);
   };
 
   const handleYearInCollegeSelection = (e) => {
     setSelectedYearInCollege(e.target.value);
+    // console.log(selectedYearInCollege);
   };
   const handleDepartmentSelection = (e) => {
     setSelectedDepartment(e.target.value);
+    // console.log(selectedDepartment);
   };
+  
   const handleSubmit = () => {
+    // console.log(typeof(selectedYear));
+    // console.log(typeof(selectedYearInCollege));
+    // console.log(typeof(selectedDepartment));
     if(selectedYear && selectedYearInCollege)
     {
+
       if (selectedYearInCollege === 'First Year') {
         const dataToTransfer = `${selectedYear}-${selectedYearInCollege}`;
         alert(dataToTransfer)
@@ -89,7 +103,9 @@ function YearSelector() {
     }
   };
 
+  
   return (
+
     <div className="year-selector-container">
       <div className="left-part">
         <h1>Welcome to the PICT CO-Attainment System</h1>
