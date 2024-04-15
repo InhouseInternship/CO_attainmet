@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import * as XLSX from 'xlsx';
+import './Ut1.css';
 
 function ExcelSum({ onFinalattChange }) {
   const [data1, setData] = useState([]);
@@ -265,48 +266,50 @@ function ExcelSum({ onFinalattChange }) {
   };
   return (
     <div className="excel-sum">
-         <h1>Ut1 attainment calculation</h1>
-    <div>
-        <h3>Targeted values for co1</h3>
+         <h1>Unit test-1 CO-attainment calculation</h1>
+         
+      <div className='co1'>
+        <h3>Targeted values for Course Outcome-1</h3>
       <div>
-        <label htmlFor="input1">% of sudents expected to be in distinction:</label>
+        <label htmlFor="input1">% of sudents expected to get distinction: </label>
         <input type="text" id="input1" value={input1} onChange={(e) => setInput1(e.target.value)} />
         {input1Error && <span style={{ color: 'red' }}>*</span>}
       </div>
       <div>
-        <label htmlFor="input2">% of sudents expected to be in First Class:</label>
+        <label htmlFor="input2">% of sudents expected to get in First Class: </label>
         <input type="text" id="input2" value={input2} onChange={(e) => setInput2(e.target.value)} />
         {input2Error && <span style={{ color: 'red' }}>*</span>}
       </div>
       <div>
-        <label htmlFor="input3">% of sudents expected to be Passed:</label>
+        <label htmlFor="input3">% of sudents expected to Pass:</label>
         <input type="text" id="input3" value={input3} onChange={(e) => setInput3(e.target.value)} />
         {input3Error && <span style={{ color: 'red' }}>*</span>}
       </div>
       </div>
+      <div className='co2'>
+        <h3>Targeted values for Course Outcome-2</h3>
       <div>
-        <h3>Targeted values for co2</h3>
-      <div>
-        <label htmlFor="input4">% of sudents expected to be in distinction:</label>
+        <label htmlFor="input4">% of sudents expected to get distinction:</label>
         <input type="text" id="input4" value={input4} onChange={(e) => setInput4(e.target.value)} />
         {input1Error && <span style={{ color: 'red' }}>*</span>}
       </div>
       <div>
-        <label htmlFor="input5">% of sudents expected to be in First Class:</label>
+        <label htmlFor="input5">% of sudents expected to get First Class:</label>
         <input type="text" id="input5" value={input5} onChange={(e) => setInput5(e.target.value)} />
         {input2Error && <span style={{ color: 'red' }}>*</span>}
       </div>
       <div>
-        <label htmlFor="input6">% of sudents expected to be Passed:</label>
+        <label htmlFor="input6">% of sudents expected to Pass:</label>
         <input type="text" id="input6" value={input6} onChange={(e) => setInput6(e.target.value)} />
         {input3Error && <span style={{ color: 'red' }}>*</span>}
       </div>
+
       </div>
       <input type="file" accept='.xlsx,.xls' onChange={handleFileUpload} disabled={!input1 || !input2 || !input3||!input4 || !input5 || !input6} />
       {fileUploaded && (
         <div className="result">
         <div className="results1">
-           <h3>For CO1=</h3>
+           <h3>For CO1 : </h3>
           <p>Total number of students: {totalNoStudents1.toFixed(2)}</p>
           <p>Total number of students got distinction: {distinctionstudents1.toFixed(2)}</p>
           <p>Total number of students got first class: {firstclassstudents1.toFixed(2)}</p>
@@ -320,7 +323,7 @@ function ExcelSum({ onFinalattChange }) {
           {/* <p>Attainment of Insem ={insemattenment1.toFixed(2)}</p> */}
         </div>
         <div className="results2">
-           <h3>For CO2</h3>
+           <h3>For CO2 : </h3>
           <p>Total number of students: {totalNoStudents1.toFixed(2)}</p>
           <p>Total number of students got distinction: {distinctionstudents2.toFixed(2)}</p>
           <p>Total number of students got first class: {firstclassstudents2.toFixed(2)}</p>
@@ -332,7 +335,9 @@ function ExcelSum({ onFinalattChange }) {
           <p>Attainment at middle level: {middlelevelco2.toFixed(2)}</p>
           <p>Attainment at low level: {lowlevelco2.toFixed(2)}</p>
           <p></p>
-          <h3>Attainment of UT1 ={finaloutput.toFixed(2)}</h3>
+          <div className='final'>
+          <h2>Attainment of UT1 ={finaloutput.toFixed(2)}</h2>
+        </div>
         </div>
         </div>
       )}

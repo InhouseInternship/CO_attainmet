@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import * as XLSX from 'xlsx';
-
+import './Insem.css';
 function ExcelSum({ onFinalattChange }) {
   const [data1, setData] = useState([]);
   const [fileUploaded, setFileUploaded] = useState(false);

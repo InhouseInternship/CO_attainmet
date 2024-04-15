@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-
+import './Computer.css';
 const FirstYear = () => {
   const [selectedDivision, setSelectedDivision] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('');
@@ -37,11 +37,11 @@ const FirstYear = () => {
 
   const getSubjects = () => {
     if (selectedYearInCollege === 'Second Year') {
-      return ['p1', 'p2', 'p3', 'p4', 'p5'];
+      return ['DM', 'FDS', 'MP', 'PPL', 'OOP'];
     } else if (selectedYearInCollege === 'Third Year') {
-      return ['s1', 's2', 's3', 's4'];
+      return ['AI', 'DSBDA', 'CC', 'WT'];
     } else if (selectedYearInCollege === 'Final Year') {
-      return ['b1', 'b2', 'b3', 'b4'];
+      return ['DAA', 'ML', 'PC', 'Elective'];
     } else {
       return [];
     }
@@ -49,11 +49,13 @@ const FirstYear = () => {
 
   return (
     <div className="Main_container">
+      <div className='box1'>
       <div className="title">
         <h1>Select Division and Subject</h1>
       </div>
       <div className="container">
-        <div>
+        <div className='select-container'>
+          <div className='division'>
           <label htmlFor="divisionSelect">Select Division:</label>
           <select id="divisionSelect" value={selectedDivision} onChange={handleDivisionChange}>
             <option value="">Select Division</option>
@@ -61,9 +63,10 @@ const FirstYear = () => {
               <option key={index} value={division}>{division}</option>
             ))}
           </select>
-        </div>
+          </div>
         {selectedDivision && (
           <div>
+            <div className='subject' >
             <label htmlFor="subjectSelect">Select Subject:</label>
             <select id="subjectSelect" value={selectedSubject} onChange={handleSubjectChange}>
               <option value="">Select Subject</option>
@@ -71,11 +74,17 @@ const FirstYear = () => {
                 <option key={index} value={subject}>{subject}</option>
               ))}
             </select>
+            </div>
           </div>
-        )}
+          )}
+        </div>
+
+        <div className='nxtbtn'>
         {selectedSubject && (
           <button onClick={handleNext}>Next</button>
         )}
+        </div>
+      </div>
       </div>
     </div>
   );

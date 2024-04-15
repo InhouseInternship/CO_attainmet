@@ -1,0 +1,209 @@
+/* html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+
+.year-selector-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 100px 10%;
+  border-radius: 20px;
+  
+   background-color: #1aa89a;
+  height: 500px;
+}
+
+Left part
+.left-part {
+  width: 45%;
+  margin-left: 2%;
+}
+
+.left-part h1{
+
+  font-size: 35px;
+  font-weight: 600;
+  font-style: normal;
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+
+.left-part h2{
+  text-align:center;
+  font-size: 15;
+}
+
+.left-part select{
+  align-items: center;
+  margin-left:  320px;
+
+}
+
+.btn{
+  margin-top: 40px;
+  margin-left: 320px;
+}
+.xyz{
+  display: block;
+  align-items: center;
+}
+
+
+.right-part {
+
+  width: 45%;
+  background-color: #7CB7AF;
+  overflow: hidden;
+}
+
+
+
+.co-list {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.co-department {
+  flex: 0 0 100%;
+  padding: 20px;
+  box-sizing: border-box;
+} */
+/* HomePage.css */
+
+/* General styles */
+/* Styling for year selector container */
+.year-selector-container {
+  background-image: url('pict_college\ .png');
+  display: flex;
+  flex-direction: column;
+ /* align-items: center;*/
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px
+}
+
+.year-selector-container h1{
+  font-weight: 1000;
+}
+
+.cont1{
+  display: flex;
+}
+.left-part {
+  width: 30%; /* Set the width */
+  margin-left: auto; /* Center the left part horizontally */
+  margin-right: auto;
+  text-align: center; /* Center the content inside */
+}
+
+/* Styling for select input */
+.left-part select {
+  width: 70%; /* Set the width */
+  padding: 8px; /* Add padding */
+  margin-bottom: 10px; /* Add margin bottom for spacing */
+  font-size: 14px; /* Adjust font size */
+  border: 1px solid #ccc; /* Add border */
+  border-radius: 5px; /* Add border radius */
+  background-color: #fff; /* Background color */
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
+
+
+/* Additional styling as needed */
+
+
+.right-part {
+  width:50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styling for h1 */
+.year-selector-container h1 {
+  font-size: 36px;
+  
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Styling for h2 */
+.year-selector-container h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Styling for select elements */
+.year-selector-container select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+/* Styling for buttons */
+.year-selector-container button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.year-selector-container button:hover {
+  background-color: #0056b3;
+}
+
+/* Styling for CO department cards */
+.co-department {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.co-department h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.co-department p {
+  font-size: 16px;
+  color: #666;
+}
+
+/* Styling for slide buttons */
+.slide-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.slide-buttons button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.slide-buttons button:hover {
+  background-color: #0056b3;
+}

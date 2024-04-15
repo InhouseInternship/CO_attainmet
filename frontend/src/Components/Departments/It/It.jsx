@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-
+import './It.css';
 const FirstYear = () => {
   const [selectedDivision, setSelectedDivision] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('');
@@ -37,23 +37,57 @@ const FirstYear = () => {
 
   const getSubjects = () => {
     if (selectedYearInCollege === 'Second Year') {
-      return ['e1', 'e2', 'e3', 'e4', 'e5'];
+      return ['DM', 'LDCO', 'BCN', 'OOP', 'DSA'];
     } else if (selectedYearInCollege === 'Third Year') {
-      return ['c1', 'c2', 'c3', 'c4'];
+      return ['TOC', 'DBMS', 'SE&PM', 'OS', 'HCI'];
     } else if (selectedYearInCollege === 'Final Year') {
-      return ['hdfu1', 'hdfui2', 'huih3', 'gyu4'];
+      return ['SPM', 'ISR', 'Deep Learning', 'Elective'];
     } else {
       return [];
     }
   };
 
   return (
-    <div className="Main_container">
+//     <div className="Main_container">
+//       <div className="title">
+//         <h1>Select Division and Subject</h1>
+//       </div>
+//       <div className="container">
+//         <div className='division'>
+//           <label htmlFor="divisionSelect">Select Division:</label>
+//           <select id="divisionSelect" value={selectedDivision} onChange={handleDivisionChange}>
+//             <option value="">Select Division</option>
+//             {getDivisions().map((division, index) => (
+//               <option key={index} value={division}>{division}</option>
+//             ))}
+//           </select>
+//         </div>
+//         </div>
+//         {selectedDivision && (
+//           <div>
+//             <label htmlFor="subjectSelect">Select Subject:</label>
+//             <select id="subjectSelect" value={selectedSubject} onChange={handleSubjectChange}>
+//               <option value="">Select Subject</option>
+//               {getSubjects().map((subject, index) => (
+//                 <option key={index} value={subject}>{subject}</option>
+//               ))}
+//             </select>
+//           </div>
+//         )}
+//         {selectedSubject && (
+//           <button onClick={handleNext}>Next</button>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+<div className="Main_container">
       <div className="title">
         <h1>Select Division and Subject</h1>
       </div>
       <div className="container">
-        <div>
+      <div className='select-container'>
+        <div className='division'>
           <label htmlFor="divisionSelect">Select Division:</label>
           <select id="divisionSelect" value={selectedDivision} onChange={handleDivisionChange}>
             <option value="">Select Division</option>
@@ -61,9 +95,11 @@ const FirstYear = () => {
               <option key={index} value={division}>{division}</option>
             ))}
           </select>
+          </div>
         </div>
         {selectedDivision && (
           <div>
+            <div className='subject' >
             <label htmlFor="subjectSelect">Select Subject:</label>
             <select id="subjectSelect" value={selectedSubject} onChange={handleSubjectChange}>
               <option value="">Select Subject</option>
@@ -71,14 +107,18 @@ const FirstYear = () => {
                 <option key={index} value={subject}>{subject}</option>
               ))}
             </select>
+            </div>
           </div>
         )}
+        <div className='nxtbtn'>
         {selectedSubject && (
           <button onClick={handleNext}>Next</button>
         )}
+        </div>
       </div>
     </div>
   );
 };
+
 
 export default FirstYear;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate,useParams,useLocation  } from 'react-router-dom';
-
+import './FirstYear.css';
 // import './Comp.css'
 
 const FirstYear = () => {
@@ -17,7 +17,7 @@ const FirstYear = () => {
   // alert(selectedYear)
    
   const divisions = ['fe 1', 'fe 2', 'fe 3', 'fe 4', 'fe 5', 'fe 6', 'fe 7', 'fe 8', 'fe 9', 'fe 10', 'fe 11'];
-  const subjects = ['Subject 1', 'Subject 2', 'Subject 3', 'Subject 4', 'Subject 5', 'Subject 6', 'Subject 7', 'Subject 8', 'Subject 9', 'Subject 10'];
+  const subjects = ['BXE', 'BEE', 'EM-1', 'PPS', 'Chemistry', 'Physics', 'EM-2', 'Workshop', 'ES', 'Comm-skill'];
 
   const handleDivisionChange = (e) => {
     setSelectedDivision(e.target.value);
@@ -46,7 +46,8 @@ const FirstYear = () => {
         <h1>Select Division and Subject</h1>
       </div>
       <div className="container">
-        <div>
+      <div className='select-container'>
+        <div className='division'>
           <label htmlFor="divisionSelect">Select Division:</label>
           <select id="divisionSelect" value={selectedDivision} onChange={handleDivisionChange}>
             <option value="">Select Division</option>
@@ -57,6 +58,7 @@ const FirstYear = () => {
         </div>
         {selectedDivision && (
           <div>
+            <div className='subject' >
             <label htmlFor="subjectSelect">Select Subject:</label>
             <select id="subjectSelect" value={selectedSubject} onChange={handleSubjectChange}>
               <option value="">Select Subject</option>
@@ -65,11 +67,16 @@ const FirstYear = () => {
               ))}
             </select>
           </div>
+          </div>
         )}
+        </div>
+        <div className='nxtbtn'>
         {selectedSubject && (
           <button onClick={handleNext}>Next</button>
         )}
-      </div>
+        </div>
+        </div>
+      
     </div>
   );
 };

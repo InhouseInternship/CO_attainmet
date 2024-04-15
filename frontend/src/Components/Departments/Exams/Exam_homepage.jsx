@@ -22,8 +22,8 @@ function App() {
         <h1>Select the exam</h1>
       </div>
    
-    <div className="container">
-      
+   {/* <div className="container"> */}
+      <div className='box-container'>
       <div className="row">
         <div className="box" onClick={() => handleNavigation('/Ut1')}>
           <h2>UT1</h2>
@@ -46,6 +46,7 @@ function App() {
         </div>
       </div>
     </div>
+    {/* </div> */}
     </div>
   );
 }

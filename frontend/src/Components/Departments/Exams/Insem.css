@@ -1,0 +1,58 @@
+/* AdditionalStyles.css */
+
+/* Styling for excel-sum container */
+.excel-sum {
+    display: block;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-left: 50px;
+    margin-right: 50px;
+    /*background-color: #f9f9f9;*/
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for h1 */
+.excel-sum h1 {
+    
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Styling for input labels and fields */
+.excel-sum label {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.excel-sum input[type="text"] {
+    width: 10%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Styling for file upload input */
+.excel-sum input[type="file"] {
+    margin-top: 20px;
+}
+
+/* Styling for results */
+.excel-sum .results {
+    margin-top: 20px;
+}
+
+.excel-sum .results p {
+    margin: 5px 0;
+}
+
+.excel-sum .results h3 {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #333;
+}

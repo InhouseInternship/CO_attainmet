@@ -1,0 +1,194 @@
+/* 
+
+.excel-sum {
+    display: block;
+    justify-content: center;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+ 
+  .excel-sum h1 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+
+  .excel-sum h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  
+  .excel-sum label {
+    display: inline-block;
+    margin-bottom: 5px;
+  }
+  
+  .excel-sum input[type="text"] {
+    display: inline-block;
+    vertical-align: top;
+    width: 20%;
+    padding: 5px;
+    margin-left: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+ 
+  .excel-sum input[type="file"] {
+    margin-top: 20px;
+  }
+  
+
+  .excel-sum .result {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .excel-sum .results1,
+  .excel-sum .results2 {
+    flex: 1;
+  }
+  
+  
+  .excel-sum p {
+    margin: 5px 0;
+  }
+   */
+   /* AdditionalStyles.css */
+
+/* Styling for excel-sum container */
+/* AdditionalStyles.css */
+
+/* AdditionalStyles.css */
+
+/* Styling for excel-sum container */
+/* .excel-sum {
+    display: block;
+    justify-content: center;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+} */
+.excel-sum {
+    position: absolute;
+    top: 50px; /* Adjust this value according to your navbar height */
+    bottom: 40px; /* Adjust this value according to your footer height */
+    left: 0;
+    right: 0;
+    display: block;
+    justify-content: center;
+   /* background-color: #f9f9f9;*/
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+}
+
+
+/* Styling for h1 */
+.excel-sum h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Styling for h3 */
+.excel-sum h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Styling for input labels and fields */
+.excel-sum label {
+    display: inline-block;
+    width: 20%;
+    margin-bottom: 5px;
+}
+
+.excel-sum input[type="text"] {
+    display: inline-block;
+    width:10%;
+    padding: 7px;
+    margin-left: 10px;
+    margin-bottom: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.excel-sum input[type="text"]:last-child {
+    margin-bottom: 0;
+}
+
+/* Styling for file upload input */
+.excel-sum input[type="file"] {
+    margin-top: 20px;
+}
+
+/* Styling for results */
+.excel-sum .result {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.excel-sum .results1,
+.excel-sum .results2 {
+    flex: 1;
+}
+
+.excel-sum .results2 h2{
+  font-weight: 800;
+  color: red;
+}
+
+
+
+/* Styling for result paragraphs */
+.excel-sum p {
+    margin: 5px 0;
+}
+
+
+
+/* Styling for CO1 and CO2 */
+.excel-sum .co1,
+.excel-sum .co2 {
+    margin-top: 40px;
+}
+
+.excel-sum .co1 label,
+.excel-sum .co2 label {
+    display: inline-block;
+    width: 30%;
+    margin-bottom: 5px;
+}
+
+.excel-sum .co1 input[type="text"],
+.excel-sum .co2 input[type="text"] {
+    display: inline-block;
+    width: 10%;
+    padding: 5px;
+    margin-left: -30px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.excel-sum .co1 input[type="text"]:last-child,
+.excel-sum .co2 input[type="text"]:last-child {
+    margin-bottom: 0;
+}

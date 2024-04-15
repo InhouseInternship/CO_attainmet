@@ -1,36 +1,87 @@
+
+
 .Main_container {
-    text-align: center; /* Center align the content */
-  }
+
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  min-height: 50vh; /* Minimum height of viewport */
+  padding: 40px;
+  box-sizing: border-box; /* Include padding in the element's total width and height */
   
-  .title {
-    margin-bottom: 20px; /* Add margin for spacing */
-  }
+}
+
+/* Styling for title */
+.title {
+  margin-bottom: 40px;
+}
+
+.title h1 {
+  font-size: 50px; /* Increase font size */
+  font-weight: 100;
+  color: #333;
+  text-align: center; /* Center text */
+  margin-top: -400; /* Remove top margin */
+  border-bottom: 2px solid #007bff; /* Add border to the bottom */
+  padding-bottom: 5px; /* Add padding to the bottom */
+}
+
+/* Styling for container */
 .container {
-    margin-top: 10%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    height: 10vh;
-  }
+  width: 100%;
+  max-width: 600px; /* Limit width for better readability */
+}
+
+/* Styling for box-container */
+.box-container {
+  display: flex;
   
-  .row {
-    display: flex;
-  }
-  
-  .box {
-    width: 150px;
-    height: 150px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    margin: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .box:hover {
-    background-color: #ddd;
-  }
-  
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #060606; /* Black solid border */
+  border-radius: 10px; /* Rounded corners */
+  padding: 20px; /* Add padding around the box */
+  margin-top: -20px;
+  margin-bottom: 70px;
+}
+
+/* Styling for row */
+.row {
+  display: flex;
+  justify-content: space-between; /* Distribute items evenly */
+}
+
+/* Styling for box */
+.box {
+  /* flex: 1; 
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.3s ease; */
+  width: 150px; /* Adjust width as needed */
+  height: 120px; /* Adjust height as needed */
+  margin: 10px; /* Adjust margin as needed */
+  background-color: #ffffff; /* Background color of each box */
+  border: 1px solid #000000; /* Black border for each box */
+  border-radius: 5px; /* Rounded corners for each box */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.box:hover {
+  background-color: #eaeaea;
+}
+
+.box h2 {
+  font-size: 20px; /* Adjust font size */
+  color: #333;
+  text-align: center; /* Center text */
+}
+
+

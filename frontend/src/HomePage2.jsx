@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './HomePage.css';
+import './HomePage2.css';
+
 
 function YearSelector() {
-  
   const navigate = useNavigate();
   const [selectedYear, setSelectedYear] = useState(null);
   const [selectedYearInCollege, setSelectedYearInCollege] = useState(null);
@@ -14,28 +14,30 @@ function YearSelector() {
   const departments = ['Computer', 'ENTC', 'IT'];
   const [slideIndex, setSlideIndex] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      slideDepartments(1);
-    }, 3000); // Adjust the interval time as needed (in milliseconds)
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     // slideDepartments(1);
+  //   }, 3000); // Adjust the interval time as needed (in milliseconds)
    
-    return () => clearInterval(interval);
-  }, [slideIndex]);
-  const slideDepartments = (direction) => {
-    const totalDepartments = document.querySelectorAll('.co-department').length;
-    let newIndex = slideIndex + direction;
+  //   return () => clearInterval(interval);
+  // }, [slideIndex]);
 
-    if (newIndex < 0) {
-      newIndex = totalDepartments - 1;
-    } else if (newIndex >= totalDepartments) {
-      newIndex = 0;
-    }
+  // const slideDepartments = (direction) => {
+  //   const totalDepartments = document.querySelectorAll('.co-department').length;
+  //   let newIndex = slideIndex + direction;
 
-    setSlideIndex(newIndex);
+  //   if (newIndex < 0) {
+  //     newIndex = totalDepartments - 1;
+  //   } else if (newIndex >= totalDepartments) {
+  //     newIndex = 0;
+  //   }
 
-    const translateValue = `translateX(-${newIndex * 100}%)`;
-    document.querySelector('.co-list').style.transform = translateValue;
-  };
+  //   setSlideIndex(newIndex);
+
+  //   const translateValue = `translateX(-${newIndex * 100}%)`;
+  //   document.querySelector('.co-list').style.transform = translateValue;
+  // };
+
   const handleYearSelection = (e) => {
     setSelectedYear(parseInt(e.target.value));
   };
@@ -43,57 +45,42 @@ function YearSelector() {
   const handleYearInCollegeSelection = (e) => {
     setSelectedYearInCollege(e.target.value);
   };
+
   const handleDepartmentSelection = (e) => {
     setSelectedDepartment(e.target.value);
   };
+
   const handleSubmit = () => {
-    if(selectedYear && selectedYearInCollege)
-    {
+    if(selectedYear && selectedYearInCollege) {
       if (selectedYearInCollege === 'First Year') {
         const dataToTransfer = `${selectedYear}-${selectedYearInCollege}`;
         alert(dataToTransfer)
         navigate('FirstYear', { state: { data:dataToTransfer } })
-      } 
-      // else if (selectedYearInCollege === 'Second Year') {
-        
-      //   navigate('/SecondYear');
-      // } else if (selectedYearInCollege === 'Third Year') {
-      //   navigate('/ThirdYear');
-      // } else if (selectedYearInCollege === 'Final Year') {
-      //   navigate('/FinalYear');
-      // }
-      else
-      {
-        if(selectedDepartment==='Computer')
-        {
+      } else {
+        if(selectedDepartment==='Computer') {
           const dataToTransfer = `${selectedYear}-${selectedYearInCollege}-${selectedDepartment}`;
-        alert(dataToTransfer)
-        navigate('Computer', { state: { data:dataToTransfer } })
-        }
-        else if(selectedDepartment==='IT')
-        {
+          alert(dataToTransfer)
+          navigate('Computer', { state: { data:dataToTransfer } })
+        } else if(selectedDepartment==='IT') {
           const dataToTransfer = `${selectedYear}-${selectedYearInCollege}-${selectedDepartment}`;
           alert(dataToTransfer)
           navigate('It', { state: { data:dataToTransfer } })
-        }
-        else if(selectedDepartment==='ENTC')
-        {
+        } else if(selectedDepartment==='ENTC') {
           const dataToTransfer = `${selectedYear}-${selectedYearInCollege}-${selectedDepartment}`;
           alert(dataToTransfer)
           navigate('Entc', { state: { data:dataToTransfer } })
         }
       }
-    }
-    else
-    {
+    } else {
       alert('Please select both year and year in college.');
     }
   };
 
   return (
     <div className="year-selector-container">
-      <div className="left-part">
-        <h1>Welcome to the PICT CO-Attainment System</h1>
+      <h1>Welcome to the PICT CO-Attainment System</h1>
+      <div className='cont1'>
+      <div className="left-part">   
         <h2>Select Year:</h2>
         <select onChange={handleYearSelection}>
           <option value="">Select Year</option>
@@ -107,7 +94,7 @@ function YearSelector() {
         {selectedYear && (
           <>
             <h2>Select Year in College:</h2>
-            <select onChange={handleYearInCollegeSelection}>
+            <select className="year-select" onChange={handleYearInCollegeSelection}>
               <option value="">Select Year in College</option>
               {yearsInCollege.map((yearInCollege) => (
                 <option key={yearInCollege} value={yearInCollege}>
@@ -132,6 +119,7 @@ function YearSelector() {
           </>
         )}
       </div>
+      
       <div className="right-part">
         {/* Horizontal scrolling list of COs */}
         <div className="co-list">
@@ -159,9 +147,10 @@ function YearSelector() {
           </div>
         </div>
       </div>
+      </div>
       <div className="slide-buttons">
-  <button className="prev-btn" onClick={() => slideDepartments(-1)}></button>
-  <button className="next-btn" onClick={() => slideDepartments(1)}></button>
+  {/* <button className="prev-btn" onClick={() => slideDepartments(-1)}></button> */}
+  {/* <button className="next-btn" onClick={() => slideDepartments(1)}></button> */}
 </div>
 
     </div>
