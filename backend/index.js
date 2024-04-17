@@ -3,11 +3,11 @@ const cors = require("cors")
 const mongoose = require("mongoose")
 const dotenv = require("dotenv")
 const Routes = require("./routes/route.js")
-
+// const service = require("./service");
 // const bodyParser = require("body-parser")
 // const student = require("./models/student.js")
 const app = express()
-const PORT = process.env.PORT || 5001
+const PORT = process.env.PORT || 5000
 
 dotenv.config();
 

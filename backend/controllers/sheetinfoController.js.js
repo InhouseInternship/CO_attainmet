@@ -9,8 +9,7 @@ exports.createSheetInfo = async (req, res) => {
       branch,
       division,
       subject,
-      examType,
-      excelData,
+      Sheet_values,
     } = req.body;
 
     const newSheetInfo = new SheetInfo({
@@ -19,8 +18,7 @@ exports.createSheetInfo = async (req, res) => {
       branch,
       division,
       subject,
-      examType,
-      excelData,
+      Sheet_values,
     });
 
     await newSheetInfo.save();
@@ -40,5 +38,35 @@ exports.getAllSheetInfo = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to fetch sheet info" });
+  }
+};
+
+// Get Sheet_values ObjectId based on parameters
+exports.getSheetValuesId = async (req, res) => {
+  console.log("hdhdjd");
+  try {
+    const { academicYear, studyingYear, branch, division, subject } = req.params;
+    
+    console.log("Params:", academicYear, studyingYear, branch, division, subject);
+
+    // Find the sheet info with the provided parameters
+    const sheetInfo = await SheetInfo.findOne({
+      academicYear: academicYear,
+      studyingYear: studyingYear,
+      branch: branch,
+      division: division,
+      subject: subject
+    });
+
+    console.log("SheetInfo:", sheetInfo);
+
+    if (!sheetInfo) {
+      return res.status(404).json({ error: "Sheet_info not found" });
+    }
+
+    res.status(200).json({ Sheet_values: sheetInfo.Sheet_values });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch Sheet_values ObjectId" });
   }
 };
