@@ -27,18 +27,46 @@ const FirstYear = () => {
   const handleSubjectChange = (e) => {
     setSelectedSubject(e.target.value);
   };
-
-  const handleNext = () => {
-    // console.log('Selected Division:', selectedDivision);
-    // console.log('Selected Subject:', selectedSubject);
-    // alert(selectedYear)
-    // console.log('Selected Year in College:', selectedYearInCollege);
-
-    // Navigate to the FirstYear page
+  const handleNext = async () => {
     const dataToTransfer = `${selectedYear}-${selectedYearInCollege}-${selectedDivision}-${selectedSubject}`;
-    // alert(dataToTransfer)
-    navigate('/Exam_homepage',{ state: { data:dataToTransfer } });
-  };
+    // alert(dataToTransfer);
+        // Make POST request to backend API to store data
+        try {
+          const response = await fetch('http://localhost:3000/api/sheetinfo', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              academicYear: parseInt(selectedYear),
+              studyingYear: selectedYearInCollege,
+              branch: "",
+              division: selectedDivision,
+              subject: selectedSubject,
+              Sheet_values:null
+            })
+          });
+    
+          const responseData = await response.json();
+          console.log(responseData); // Log the response from the backend
+    
+          // Redirect to the next page
+          navigate('/Exam_homepage', { state: { data: dataToTransfer } });
+        } catch (error) {
+          console.error(error);
+        }
+      };
+  // const handleNext = () => {
+  //   // console.log('Selected Division:', selectedDivision);
+  //   // console.log('Selected Subject:', selectedSubject);
+  //   // alert(selectedYear)
+  //   // console.log('Selected Year in College:', selectedYearInCollege);
+
+  //   // Navigate to the FirstYear page
+  //   const dataToTransfer = `${selectedYear}-${selectedYearInCollege}-${selectedDivision}-${selectedSubject}`;
+  //   // alert(dataToTransfer)
+  //   navigate('/Exam_homepage',{ state: { data:dataToTransfer } });
+  // };
   
   return (
     <div className="Main_container">

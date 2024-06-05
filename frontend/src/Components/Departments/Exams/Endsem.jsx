@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import * as XLSX from 'xlsx';
 import './Insem.css';
+import axios from 'axios';
+
 function ExcelSum({ onFinalattChange }) {
   const [data1, setData] = useState([]);
   const [fileUploaded, setFileUploaded] = useState(false);
@@ -15,7 +17,7 @@ function ExcelSum({ onFinalattChange }) {
   const [hightlevelco,setHighLevelco]=useState(0);
   const [middlelevelco,setMiddleLevelco]=useState(0);
   const [lowlevelco,setLowevelco]=useState(0);
-  const [insemattenment, setInsemattainment] = useState(0);
+  const [endsemattenment, setEndsemattainment] = useState(0);
   const [totalCOTarget, setTotalCOTarget] = useState(0);
   const [input1, setInput1] = useState('');
   const [input2, setInput2] = useState('');
@@ -24,8 +26,11 @@ function ExcelSum({ onFinalattChange }) {
   const [input2Error, setInput2Error] = useState(false);
   const [input3Error, setInput3Error] = useState(false);
   const location = useLocation();
-  const { data } = location.state;
+  const { data ,savedId} = location.state;
+  const [dataId, setDataId] = useState('');
   const [selectedYear, selectedYearInCollege, selectedDepartment, selectedDivision, selectedSubject] = data.split('-');
+  const [sheetValues, setSheetValues] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Check if there is previously calculated data in local storage
@@ -36,7 +41,7 @@ function ExcelSum({ onFinalattChange }) {
       setDistinctionPercentage(storedData.distinctionPercentage);
       setFirstClassPercentage(storedData.firstClassPercentage);
       setPassPercentage(storedData.passPercentage);
-      setInsemattainment(storedData.insemattenment);
+      setEndsemattainment(storedData.endsemattenment);
       setTotalCOTarget(storedData.totalCOTarget);
       setInput1(storedData.input1);
       setInput2(storedData.input2);
@@ -121,7 +126,7 @@ function ExcelSum({ onFinalattChange }) {
       setHighLevelco(dPercentage/100);
       setLowevelco(pPercentage/100);
       setMiddleLevelco(fPercentage/100);
-      setInsemattainment(finalatt);
+      setEndsemattainment(finalatt);
       const dataToTransfer = `${selectedYear}-${selectedYearInCollege}-${selectedDepartment}-${selectedDivision}-${selectedSubject}`;
       // alert(dataToTransfer);
       // Calculate and set total CO target
@@ -134,7 +139,7 @@ function ExcelSum({ onFinalattChange }) {
         distinctionPercentage: dPercentage,
         firstClassPercentage: fPercentage,
         passPercentage: pPercentage,
-        insemattenment: finalatt,
+        endsemattenment: finalatt,
         totalCOTarget,
         input1,
         input2,
@@ -163,6 +168,79 @@ function ExcelSum({ onFinalattChange }) {
     // Assuming CO target is specified in the first row of the second column
     const topValue = data[0][1];
     return topValue * data.length; // Multiply by the number of students
+  };
+  useEffect(() => {
+
+    const fetchSheetValues = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/api/sheetinfo/${savedId}`);
+        setSheetValues(response.data.Sheet_value);
+        console.log("sheetvalues : ",sheetValues);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching sheet values:', error);
+      }
+    };
+  
+    fetchSheetValues();
+  }, [savedId]);
+  const navigate = useNavigate(); 
+  const navigateToExamHome = async () => {
+  const dataToTransfer = `${selectedYear}-${selectedYearInCollege}-${selectedDepartment}-${selectedDivision}-${selectedSubject}`;
+    
+    // Execute fetchDataAndUpdateSheetData only when sheetValues is null
+    if (sheetValues === null) {
+      try {
+        const response = await fetch('http://localhost:3000/api/sheetdata', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            UT: null,
+            UT2: null,
+            Insem: null,
+            Endsem: endsemattenment.toFixed(2),
+            midterm_att: null,
+            direct_att: null,
+            final_att: null
+          })
+        });
+  
+        const responseData = await response.json();
+        const dataId = responseData.sheetData._id;
+        setDataId(dataId);
+        try {
+          await axios.put(`http://localhost:3000/api/sheetinfo/${savedId}`, { Sheet_values:dataId });
+          console.log('Sheet_values updated successfully');
+        } catch (error) {
+          console.error('Error updating sheetValues:', error);
+        }
+        console.log('Sheet_values is null');
+      } catch (error) {
+        console.error(error);
+      }
+    } 
+    else 
+    {
+      // console.log("not null",finaloutput);
+      try {
+        const response = await axios.put(`http://localhost:3000/api/sheetdata/${sheetValues}`, { fieldName: 'Endsem', fieldValue: endsemattenment .toFixed(2)});
+        if (response.status === 200) {
+          console.log('Sheet_values is updated successfully');
+          // Handle success, if needed
+        } else {
+          console.error('Error updating sheetValues: Unexpected status code', response.status);
+          // Handle unexpected status code
+        }
+      } catch (error) {
+        console.error('Error updating sheetValues:', error);
+      }
+      console.log("Sheet_values is not null");
+    }
+  
+    // Navigate to the exam homepage
+    navigate('/Exam_homepage', { state: { data: dataToTransfer, savedId: savedId } });
   };
   return (
     <div className="excel-sum">
@@ -195,12 +273,14 @@ function ExcelSum({ onFinalattChange }) {
           <p>Attainment at high level: {hightlevelco.toFixed(2)}</p>
           <p>Attainment at middle level: {middlelevelco.toFixed(2)}</p>
           <p>Attainment at low level: {lowlevelco.toFixed(2)}</p>
-          <p>Attainment of Insem ={insemattenment.toFixed(2)}</p>
+          <p>Attainment of Endsem ={endsemattenment.toFixed(2)}</p>
         </div>
       )}
+            {fileUploaded && (
+    <button onClick={navigateToExamHome}>Back to Exam_home</button>
+  )}
     </div>
   );
-  
 }
 
 export default ExcelSum;

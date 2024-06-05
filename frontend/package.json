@@ -6,9 +6,11 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.6.8",
+    "exceljs": "^4.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3",
+    "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4",
     "xlsx": "^0.18.5"
@@ -36,5 +38,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-import": "^2.29.1",
+    "mini-css-extract-plugin": "^2.9.0",
+    "tsconfig-paths": "^4.2.0"
   }
 }

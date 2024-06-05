@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import * as XLSX from 'xlsx';
 import './Ut1.css';
+import axios from 'axios';
 
 function ExcelSum({ onFinalattChange }) {
   const [data1, setData] = useState([]);
@@ -45,8 +46,12 @@ function ExcelSum({ onFinalattChange }) {
   const [input5Error, setInput5Error] = useState(false);
   const [input6Error, setInput6Error] = useState(false);
   const location = useLocation();
-  const { data } = location.state;
+  const { data ,savedId} = location.state;
+  const [dataId, setDataId] = useState('');
+
   const [selectedYear, selectedYearInCollege, selectedDepartment, selectedDivision, selectedSubject] = data.split('-');
+  const [sheetValues, setSheetValues] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Check if there is previously calculated data in local storage
@@ -251,37 +256,97 @@ function ExcelSum({ onFinalattChange }) {
     };
     reader.readAsBinaryString(file);
   };
+  useEffect(() => {
 
-  const handleSubmit = () => {
-    // setSubmitClicked(true);
-    if (input1 !== '' && input2 !== '' && input3 !== '') {
-      // Perform other operations
-      alert("Submit button clicked!");
+    const fetchSheetValues = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/api/sheetinfo/${savedId}`);
+        setSheetValues(response.data.Sheet_value);
+        console.log("sheetvalues : ",sheetValues);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching sheet values:', error);
+      }
+    };
+    fetchSheetValues();
+  }, [savedId]);
+
+  const navigate = useNavigate(); 
+  const navigateToExamHome = async () => {
+  const dataToTransfer = `${selectedYear}-${selectedYearInCollege}-${selectedDepartment}-${selectedDivision}-${selectedSubject}`;
+    
+    // Execute fetchDataAndUpdateSheetData only when sheetValues is null
+    if (sheetValues === null) {
+      try {
+        const response = await fetch('http://localhost:3000/api/sheetdata', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            UT: finaloutput.toFixed(2),
+            UT2: null,
+            Insem: null,
+            Endsem: null,
+            midterm_att: null,
+            direct_att: null,
+            final_att: null
+          })
+        });
+  
+        const responseData = await response.json();
+        const dataId = responseData.sheetData._id;
+        setDataId(dataId);
+        try {
+          await axios.put(`http://localhost:3000/api/sheetinfo/${savedId}`, { Sheet_values:dataId });
+          console.log('Sheet_values updated successfully');
+        } catch (error) {
+          console.error('Error updating sheetValues:', error);
+        }
+        console.log('Sheet_values is null');
+      } catch (error) {
+        console.error(error);
+      }
+    } 
+    else 
+    {
+      console.log("not null",finaloutput);
+      try {
+        const response = await axios.put(`http://localhost:3000/api/sheetdata/${sheetValues}`, { fieldName: 'UT', fieldValue: finaloutput.toFixed(2) });
+        if (response.status === 200) {
+          console.log('Sheet_values is updated successfully');
+          // Handle success, if needed
+        } else {
+          console.error('Error updating sheetValues: Unexpected status code', response.status);
+          // Handle unexpected status code
+        }
+      } catch (error) {
+        console.error('Error updating sheetValues:', error);
+      }
+      console.log("Sheet_values is not null");
     }
-  };
-  const calculateTotalCOTarget = (data) => {
-    // Assuming CO target is specified in the first row of the second column
-    const topValue = data[0][1];
-    return topValue * data.length; // Multiply by the number of students
+  
+    // Navigate to the exam homepage
+    navigate('/Exam_homepage', { state: { data: dataToTransfer, savedId: savedId } });
   };
   return (
     <div className="excel-sum">
-         <h1>Unit test-1 CO-attainment calculation</h1>
-         
-      <div className='co1'>
+         <h1>Unit test-2 CO-attainment calculation</h1>
+         <div className='co-container'>
+    <div className='co1'>
         <h3>Targeted values for Course Outcome-1</h3>
       <div>
-        <label htmlFor="input1">% of sudents expected to get distinction: </label>
+        <label htmlFor="input1">% of sudents expected to be in distinction:</label>
         <input type="text" id="input1" value={input1} onChange={(e) => setInput1(e.target.value)} />
         {input1Error && <span style={{ color: 'red' }}>*</span>}
       </div>
       <div>
-        <label htmlFor="input2">% of sudents expected to get in First Class: </label>
+        <label htmlFor="input2">% of sudents expected to be in First Class:</label>
         <input type="text" id="input2" value={input2} onChange={(e) => setInput2(e.target.value)} />
         {input2Error && <span style={{ color: 'red' }}>*</span>}
       </div>
       <div>
-        <label htmlFor="input3">% of sudents expected to Pass:</label>
+        <label htmlFor="input3">% of sudents expected to be Passed:</label>
         <input type="text" id="input3" value={input3} onChange={(e) => setInput3(e.target.value)} />
         {input3Error && <span style={{ color: 'red' }}>*</span>}
       </div>
@@ -289,27 +354,27 @@ function ExcelSum({ onFinalattChange }) {
       <div className='co2'>
         <h3>Targeted values for Course Outcome-2</h3>
       <div>
-        <label htmlFor="input4">% of sudents expected to get distinction:</label>
+        <label htmlFor="input4">% of sudents expected to be in distinction:</label>
         <input type="text" id="input4" value={input4} onChange={(e) => setInput4(e.target.value)} />
         {input1Error && <span style={{ color: 'red' }}>*</span>}
       </div>
       <div>
-        <label htmlFor="input5">% of sudents expected to get First Class:</label>
+        <label htmlFor="input5">% of sudents expected to be in First Class:</label>
         <input type="text" id="input5" value={input5} onChange={(e) => setInput5(e.target.value)} />
         {input2Error && <span style={{ color: 'red' }}>*</span>}
       </div>
       <div>
-        <label htmlFor="input6">% of sudents expected to Pass:</label>
+        <label htmlFor="input6">% of sudents expected to be Passed:</label>
         <input type="text" id="input6" value={input6} onChange={(e) => setInput6(e.target.value)} />
         {input3Error && <span style={{ color: 'red' }}>*</span>}
       </div>
-
+      </div>
       </div>
       <input type="file" accept='.xlsx,.xls' onChange={handleFileUpload} disabled={!input1 || !input2 || !input3||!input4 || !input5 || !input6} />
       {fileUploaded && (
         <div className="result">
         <div className="results1">
-           <h3>For CO1 : </h3>
+           <h3>For CO3 : </h3>
           <p>Total number of students: {totalNoStudents1.toFixed(2)}</p>
           <p>Total number of students got distinction: {distinctionstudents1.toFixed(2)}</p>
           <p>Total number of students got first class: {firstclassstudents1.toFixed(2)}</p>
@@ -323,7 +388,7 @@ function ExcelSum({ onFinalattChange }) {
           {/* <p>Attainment of Insem ={insemattenment1.toFixed(2)}</p> */}
         </div>
         <div className="results2">
-           <h3>For CO2 : </h3>
+           <h3>For CO4 : </h3>
           <p>Total number of students: {totalNoStudents1.toFixed(2)}</p>
           <p>Total number of students got distinction: {distinctionstudents2.toFixed(2)}</p>
           <p>Total number of students got first class: {firstclassstudents2.toFixed(2)}</p>
@@ -337,10 +402,13 @@ function ExcelSum({ onFinalattChange }) {
           <p></p>
           <div className='final'>
           <h2>Attainment of UT1 ={finaloutput.toFixed(2)}</h2>
-        </div>
+          </div>
         </div>
         </div>
       )}
+      {fileUploaded && (
+    <button onClick={navigateToExamHome}>Back to Exam_home</button>
+  )}
     </div>
   );
   

@@ -60,7 +60,7 @@ function YearSelector() {
         if(selectedDepartment==='Computer') {
           const dataToTransfer = `${selectedYear}-${selectedYearInCollege}-${selectedDepartment}`;
           alert(dataToTransfer)
-          navigate('Computer', { state: { data:dataToTransfer } })
+          navigate('/Computer', { state: { data:dataToTransfer } })
         } else if(selectedDepartment==='IT') {
           const dataToTransfer = `${selectedYear}-${selectedYearInCollege}-${selectedDepartment}`;
           alert(dataToTransfer)

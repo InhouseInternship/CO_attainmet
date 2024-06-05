@@ -46,10 +46,12 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import HomePage2 from './HomePage2';
+import Login from './Login'
+import Register from './Register'
 import Navbar from './Navbar/Navbar';
 import Footer from './Footer/Footer';
 import FirstYear from './Components/Departments/FirstYear/FirstYear';
-// import FirstYear_home from './Components/Departments/FirstYear/FirstYear_home';
+// import Excel_sheet from './Components/Departments/Exams/Excel_sheet';
 import FirstYear_endsem from './Components/Departments/Exams/Endsem';
 import FirstYear_insem from './Components/Departments/Exams/Insem';
 import Computer from './Components/Departments/Computer/Computer';
@@ -66,9 +68,12 @@ function App() {
         <div className="content">
           <Navbar />
           <Routes>
-            <Route path="/" element={<HomePage2 />} />
+          <Route path="/" element={<Login/>}></Route>
+        <Route path="/Register" element={<Register/>}></Route>
+          <Route path="/Homepage2" element={<HomePage2/>}></Route>
+          <Route path="/FirstYear" element={<FirstYear/>}></Route>
             <Route path="/FirstYear" element={<FirstYear />} />
-            {/* <Route path="/FirstYear_home" element={<FirstYear_home />} /> */}
+            {/* <Route path="/Excel_sheet" element={<Excel_sheet />} /> */}
             <Route path="/FirstYear_endsem" element={<FirstYear_endsem />} />
             <Route path="/FirstYear_insem" element={<FirstYear_insem />} />
             <Route path="/Computer" element={<Computer />} />

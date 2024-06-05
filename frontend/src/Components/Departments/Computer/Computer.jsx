@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Computer.css';
 const FirstYear = () => {
@@ -8,7 +8,10 @@ const FirstYear = () => {
   const location = useLocation();
   const { data } = location.state;
   const [selectedYear, selectedYearInCollege,selectedDepartment] = data.split('-');
-
+  const [savedId, setSavedId] = useState('');
+  // useEffect(() => {
+  //   createSheetInfo();
+  // }, []);
   const handleDivisionChange = (e) => {
     setSelectedDivision(e.target.value);
   };
@@ -17,11 +20,37 @@ const FirstYear = () => {
     setSelectedSubject(e.target.value);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     const dataToTransfer = `${selectedYear}-${selectedYearInCollege}-${selectedDepartment}-${selectedDivision}-${selectedSubject}`;
-    alert(dataToTransfer);
-    navigate('/Exam_homepage', { state: { data:dataToTransfer } });
-  };
+    // alert(dataToTransfer);
+        // Make POST request to backend API to store data
+        try {
+          const response = await fetch('http://localhost:3000/api/sheetinfo', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              academicYear: parseInt(selectedYear),
+              studyingYear: selectedYearInCollege,
+              branch: selectedDepartment,
+              division: selectedDivision,
+              subject: selectedSubject,
+              Sheet_values:null
+            })
+          });
+    
+          const responseData = await response.json();
+          const savedId = responseData.sheetInfo._id;
+          console.log(savedId);
+          console.log("fsf",responseData); // Log the response from the backend
+          setSavedId(savedId);
+          // Redirect to the next page
+          navigate('/Exam_homepage', { state: { data: dataToTransfer , savedId: savedId} });
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
   const getDivisions = () => {
     if (selectedYearInCollege === 'Second Year') {

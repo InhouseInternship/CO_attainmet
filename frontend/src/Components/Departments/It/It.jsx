@@ -17,11 +17,35 @@ const FirstYear = () => {
     setSelectedSubject(e.target.value);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     const dataToTransfer = `${selectedYear}-${selectedYearInCollege}-${selectedDepartment}-${selectedDivision}-${selectedSubject}`;
     // alert(dataToTransfer);
-    navigate('/Exam_homepage', { state: { data:dataToTransfer } });
-  };
+        // Make POST request to backend API to store data
+        try {
+          const response = await fetch('http://localhost:3000/api/sheetinfo', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              academicYear: parseInt(selectedYear),
+              studyingYear: selectedYearInCollege,
+              branch: selectedDepartment,
+              division: selectedDivision,
+              subject: selectedSubject,
+              Sheet_values:null
+            })
+          });
+    
+          const responseData = await response.json();
+          console.log(responseData); // Log the response from the backend
+    
+          // Redirect to the next page
+          navigate('/Exam_homepage', { state: { data: dataToTransfer } });
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
   const getDivisions = () => {
     if (selectedYearInCollege === 'Second Year') {

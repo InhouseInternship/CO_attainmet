@@ -13,15 +13,14 @@ const Navbar = () => {
         </div>
         <ul className="nav-menu">
           <li className="nav-item">
-            <a href="/">Home</a>
+            <a href="/HomePage2">Home</a>
           </li>
           <li className="nav-item">
             <a href="/about">About</a>
           </li>
           <li className="nav-item">
-            <a href="/services">Login/Sign up</a>
+            <a href="/">Logout</a>
           </li>
-          {/* Add more navigation items as needed */}
         </ul>
       </div>
     </nav>
