@@ -20,9 +20,9 @@ exports.createSheetInfo = async (req, res) => {
       subject,
       Sheet_values,
     });
-
-    await newSheetInfo.save();
-    
+    console.log("yes");
+    const savedSheetInfo = await newSheetInfo.save();
+    const savedSheetInfoId = savedSheetInfo._id;
     res.status(201).json({ message: "Sheet info created successfully", sheetInfo: newSheetInfo });
   } catch (err) {
     console.error(err);
@@ -40,33 +40,39 @@ exports.getAllSheetInfo = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch sheet info" });
   }
 };
+exports.getSheetValueById = async (req,res) =>{
+  const{id} = req.params;
+  try{
+    const doc = await SheetInfo.findById(id);
+    if(doc){
+      res.json({ Sheet_value : doc.Sheet_values});
+    }
+    else{
+      res.status(404).json({ message: "Document not found" });
+    }
+  }catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+}
+};
+exports.updateSheetValuesById = async (req, res) => {
+  const { id } = req.params;
+  const { Sheet_values } = req.body;
 
-// Get Sheet_values ObjectId based on parameters
-exports.getSheetValuesId = async (req, res) => {
-  console.log("hdhdjd");
   try {
-    const { academicYear, studyingYear, branch, division, subject } = req.params;
-    
-    console.log("Params:", academicYear, studyingYear, branch, division, subject);
+    const updatedSheetInfo = await SheetInfo.findByIdAndUpdate(id, { Sheet_values }, { new: true });
 
-    // Find the sheet info with the provided parameters
-    const sheetInfo = await SheetInfo.findOne({
-      academicYear: academicYear,
-      studyingYear: studyingYear,
-      branch: branch,
-      division: division,
-      subject: subject
-    });
-
-    console.log("SheetInfo:", sheetInfo);
-
-    if (!sheetInfo) {
-      return res.status(404).json({ error: "Sheet_info not found" });
+    if (!updatedSheetInfo) {
+      return res.status(404).json({ message: "Sheet info not found" });
     }
 
-    res.status(200).json({ Sheet_values: sheetInfo.Sheet_values });
+    res.status(200).json({ message: "Sheet info updated successfully", sheetInfo: updatedSheetInfo });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to fetch Sheet_values ObjectId" });
+    res.status(500).json({ error: "Failed to update sheet info" });
   }
 };
+
+
+
+

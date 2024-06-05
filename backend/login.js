@@ -38,6 +38,6 @@ app.post('/teachers',(req,res)=>{
   .then(teachers=>res.json(teachers))
   .catch(err=>res.json(err))
 })
-app.listen(3001,()=>{
+app.listen(3005,()=>{
     console.log("server is running")
 })

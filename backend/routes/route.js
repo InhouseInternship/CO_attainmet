@@ -6,12 +6,16 @@ const sheetdataController = require("../controllers/sheetdataController.js");
 // const app = express();
 // SheetInfo Routes
 router.post("/sheetinfo", sheetinfoController.createSheetInfo);
+router.get("/sheetinfo/:id", sheetinfoController.getSheetValueById); 
 router.get("/sheetinfo", sheetinfoController.getAllSheetInfo);
-// Updated route for fetching Sheet_values ObjectId
-router.get("/sheetinfo/:academicYear/:studyingYear/:branch/:division/:subject", sheetinfoController.getSheetValuesId);
+router.put("/sheetinfo/:id", sheetinfoController.updateSheetValuesById);
+
+
 
 // SheetData Routes
 router.post("/sheetdata", sheetdataController.createSheetData);
-router.get("/sheetdata", sheetdataController.getAllSheetData);
+// router.get("/sheetdata", sheetdataController.getAllSheetData);
+router.put("/sheetdata/:id", sheetdataController.updateSheetValuesById);
+router.get("/sheetdata/:id", sheetdataController.getSheetDataById);
 
 module.exports = router;

@@ -7,7 +7,7 @@ const Routes = require("./routes/route.js")
 // const bodyParser = require("body-parser")
 // const student = require("./models/student.js")
 const app = express()
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 3000
 
 dotenv.config();
 
@@ -16,7 +16,6 @@ dotenv.config();
 
 app.use(express.json({ limit: '10mb' }))
 app.use(cors())
-
 mongoose
     .connect(process.env.MONGO_URL, {
         useNewUrlParser: true,
